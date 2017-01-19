@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- use the font -->
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    .d.a_w > .a {
+        -ms-transform: rotate(180deg);
+        /* IE 9 */
+        
+        -webkit-transform: rotate(180deg);
+        /* Chrome, Safari, Opera */
+        
+        transform: rotate(180deg);
+    }
+    .r.a_w > .a {
+        -ms-transform: rotate(90deg);
+        /* IE 9 */
+        
+        -webkit-transform: rotate(90deg);
+        /* Chrome, Safari, Opera */
+        
+        transform: rotate(90deg);
+    }
+    .l.a_w > .a {
+        -ms-transform: rotate(-90deg);
+        /* IE 9 */
+        
+        -webkit-transform: rotate(-90deg);
+        /* Chrome, Safari, Opera */
+        
+        transform: rotate(-90deg);
+    }
+    .green.a_w .a {
+        background-color: #00897b;
+    }
+    .red.a_w > .a {
+        background-color: #f44336;
+    }
+    .scoreView {
+        position: relative;
+        border-bottom: 2px solid #cacaca;
+        margin: 0 auto;
+    }
+    .a_w {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+    }
+    .a {
+        border-radius: 50%;
+        width: 84%;
+        height: 84%;
+        margin: 8%;
+    }
+    .c {
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        font-size: 40px;
+        line-height: 1.7;
+    }
+    .cl.green {
+        color: green;
+    }
+    .c.red {
+        color: red;
+    }
+    .anim {
+        -webkit-transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        /* more specific animation properties here */
+    }
+    .score_acum {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        font-size: 200px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        width: 100%;
+        height: 100%;
+    }
+    #playGound {
+        position: relative;
+        margin: 0 auto;
+    }
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="playState">
+        <div class="scoreView">
+            <span style="display:inline-block; color:green; font-size:35px;position:absolute;left:10px;">
+                <span id="greenScore">0</span>
+            </span>
+            <span style="float:right;color:red; font-size:35px;position:absolute;right:10px;">
+                <span id="redScore">0</span>
+            </span>
+            <div class="scoreDiff" style="text-align:center;color:black; font-size:58px;">0</div>
+        </div>
+    </div>
+    <div id="playGound">
+    </div>
+    <!--     <div class="menuState" style="text-align:center;padding-top:5%;color:#fff;background-color:#673ab7;height:100%">
+        <div style="font-weight:700; margin-bottom:10%;">ARROW CHAIN</div>
+        <div data-id-"single" style="padding:10px;margin:20px 0;background-color:#e53935;">Single player</div>
+        <div  data-id-"two" style="padding:10px;margin:20px 0;background-color:#4caf50;">Two player</div>
+        <div data-id-"howto" style="padding:10px;margin:20px 0;background-color:#2196f3;">How to play</div>
+            <a href="/" style="position:fixed; bottom:0; right:0">refresh</a>
+    </div> -->
+    <div id="arrowTmpl" style="display:none;">
+        <div class="a_w anim">
+            <div class="a">
+                <svg style="width: 76%; height: 76%; margin:12%" mi-visible-box="miGrid" mi-visible-box-watch="" mi-view-box="0 0 1024 1024" viewBox="0 0 1024 1024">
+                    <g>
+                        <path class=" " ng-repeat="path in icon.paths" mi-d="M877.254 402.746l-320-320c-24.992-24.994-65.514-24.994-90.508 0l-320 320c-24.994 24.994-24.994 65.516 0 90.51 24.994 24.996 65.516 24.996 90.51 0l210.744-210.746v613.49c0 35.346 28.654 64 64 64s64-28.654 64-64v-613.49l210.746 210.746c12.496 12.496 28.876 18.744 45.254 18.744s32.758-6.248 45.254-18.746c24.994-24.994 24.994-65.514 0-90.508z" mi-fill="inherit" mi-opacity="1" ng-click="selectPath($index)" mi-absorb-clicks="" d="M877.254 402.746l-320-320c-24.992-24.994-65.514-24.994-90.508 0l-320 320c-24.994 24.994-24.994 65.516 0 90.51 24.994 24.996 65.516 24.996 90.51 0l210.744-210.746v613.49c0 35.346 28.654 64 64 64s64-28.654 64-64v-613.49l210.746 210.746c12.496 12.496 28.876 18.744 45.254 18.744s32.758-6.248 45.254-18.746c24.994-24.994 24.994-65.514 0-90.508z" style="fill:white;" opacity="1">
+                        </path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    
+    <script src="main.js"></script>
+</body>
+
+</html>
